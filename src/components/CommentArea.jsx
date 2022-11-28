@@ -52,9 +52,7 @@ class CommentArea extends Component {
             <Col>
               <Card key={bookComment.asin}>
                 <Card.Body>
-                  <Card.Subtitle className="text-muted">
-                    {bookComment.rate}
-                  </Card.Subtitle>
+                  <Card.Subtitle>{bookComment.rate}</Card.Subtitle>
                   <Card.Text>{bookComment.comment}</Card.Text>
                 </Card.Body>
               </Card>
