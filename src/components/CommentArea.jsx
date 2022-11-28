@@ -50,9 +50,10 @@ class CommentArea extends Component {
         <Row>
           {this.state.comment.map((bookComment) => (
             <Col>
-              <Card key={bookComment.asin}>
+              <Card style={{ border: "solid red" }} key={bookComment.asin}>
                 <Card.Body>
-                  <Card.Subtitle>{bookComment.rate}</Card.Subtitle>
+                  <h5>Comment</h5>
+                  <Card.Subtitle>Rating: {bookComment.rate}</Card.Subtitle>
                   <Card.Text>{bookComment.comment}</Card.Text>
                 </Card.Body>
               </Card>
