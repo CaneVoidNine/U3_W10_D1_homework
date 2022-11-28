@@ -1,13 +1,39 @@
 import "./App.css";
+import React, { Component } from "react";
+import { Row, Col } from "react-bootstrap";
+import CommentArea from "./components/CommentArea";
+import BookList from "./components/BookList";
+import books from "./fantasy.json";
 
-import Main from "./components/Main";
+class App extends Component {
+  state = {
+    selected: null,
+  };
 
-function App() {
+  setSelected = (asin) => {
+    this.setState({
+      selected: asin,
+    });
+  };
+
+  render() {
     return (
-        <div className="container-fluid">
-            <Main />
-        </div>
+      <Row>
+        <Col>
+          <BookList
+            selected={this.state.selected}
+            books={books}
+            setSelected={this.setSelected}
+          />
+        </Col>
+        {this.state.selected && (
+          <Col md={4} className="mx-3">
+            <CommentArea book={this.state.selected} />
+          </Col>
+        )}
+      </Row>
     );
+  }
 }
 
 export default App;
