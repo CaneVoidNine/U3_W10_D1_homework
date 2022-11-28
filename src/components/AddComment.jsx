@@ -37,7 +37,6 @@ class AddComment extends React.Component {
           });
 
           if (response.ok) {
-            //OK!
             this.props.fetchComments(this.props.asin);
             this.setState({
               ...this.state,
@@ -50,7 +49,7 @@ class AddComment extends React.Component {
       >
         <Form.Row>
           <Form.Group as={Col} xs={12} controlId="formGridComment">
-            <Form.Label>Comment</Form.Label>
+            <Form.Label>Comments: </Form.Label>
             <Form.Control
               value={this.state.text}
               onChange={(e) => {
@@ -63,7 +62,7 @@ class AddComment extends React.Component {
           </Form.Group>
 
           <Form.Group as={Col} controlId="formGridRating">
-            <Form.Label>Rating</Form.Label>
+            <Form.Label>Ratings: </Form.Label>
             <Form.Control
               as="select"
               defaultValue="Choose..."

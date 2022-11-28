@@ -8,12 +8,12 @@ class SingleBook extends React.Component {
         style={
           this.props.selected
             ? {
-                boxShadow: "0 0 50px 15px white",
+                border: "solid red",
               }
             : {}
         }
         bg="dark"
-        className="mb-3 book"
+        className="mb-4 book"
       >
         <Card.Img
           variant="top"
