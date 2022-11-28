@@ -1,38 +1,40 @@
 import "./App.css";
-
-import BookList from "./components/BookList";
+import React, { Component } from "react";
+import { Row, Col } from "react-bootstrap";
 import CommentArea from "./components/CommentArea";
-import FantasyBooks from "./books/fantasy.json";
-import { Component } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Container, Row, Col } from "react-bootstrap";
+import BookList from "./components/BookList";
+import books from "./fantasy.json";
 
 class App extends Component {
   state = {
-    asin: "",
+    selected: null,
   };
-  selectedBooks = (newBook) => {
+
+  setSelected = (asin) => {
     this.setState({
-      asin: newBook,
+      selected: asin,
     });
   };
+
   render() {
     return (
-      <div style={{ backgroundColor: "black" }}>
-        <Container fluid>
-          <Row>
-            <Col>
-              <BookList
-                books={FantasyBooks}
-                selectedBooks={this.selectedBooks}
-              />
+      <>
+        <h1 className="ml-4">Library of Fantasy books</h1>
+        <Row>
+          <Col>
+            <BookList
+              selected={this.state.selected}
+              books={books}
+              setSelected={this.setSelected}
+            />
+          </Col>
+          {this.state.selected && (
+            <Col md={4} className="mx-3">
+              <CommentArea book={this.state.selected} />
             </Col>
-            <Col>
-              <CommentArea asin={this.state.asin} />
-            </Col>
-          </Row>
-        </Container>
-      </div>
+          )}
+        </Row>
+      </>
     );
   }
 }
