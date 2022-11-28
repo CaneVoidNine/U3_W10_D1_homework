@@ -21,13 +21,13 @@ class App extends Component {
       <div>
         <Container fluid>
           <Row>
-            <Col md={8}>
+            <Col>
               <BookList
                 books={FantasyBooks}
                 selectedBooks={this.selectedBooks}
               />
             </Col>
-            <Col md={4}>
+            <Col>
               <CommentArea asin={this.state.asin} />
             </Col>
           </Row>
