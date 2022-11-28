@@ -12,7 +12,9 @@ class BookList extends React.Component {
     return (
       <>
         <Form.Control
-          placeholder="Search"
+          className="ml-4 mb-4"
+          style={{ width: "27rem" }}
+          placeholder="Search books here"
           aria-label="Search"
           name="search"
           onChange={(e) => {

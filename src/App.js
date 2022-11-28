@@ -18,20 +18,23 @@ class App extends Component {
 
   render() {
     return (
-      <Row>
-        <Col>
-          <BookList
-            selected={this.state.selected}
-            books={books}
-            setSelected={this.setSelected}
-          />
-        </Col>
-        {this.state.selected && (
-          <Col md={4} className="mx-3">
-            <CommentArea book={this.state.selected} />
+      <>
+        <h1 className="ml-4">Library of Fantasy books</h1>
+        <Row>
+          <Col>
+            <BookList
+              selected={this.state.selected}
+              books={books}
+              setSelected={this.setSelected}
+            />
           </Col>
-        )}
-      </Row>
+          {this.state.selected && (
+            <Col md={4} className="mx-3">
+              <CommentArea book={this.state.selected} />
+            </Col>
+          )}
+        </Row>
+      </>
     );
   }
 }
