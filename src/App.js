@@ -1,37 +1,40 @@
-import WarningSign from "./components/WarningSign";
 import "./App.css";
-import MyBadge from "./components/MyBadge";
-import BookList from "./components/BookList";
-import "bootstrap/dist/css/bootstrap.min.css";
-import books from "./components/fantasy.json";
-import { Container, Row, Col } from "react-bootstrap";
-import CommentArea from "./components/CommentArea";
-import { Component } from "react";
-export default class App extends Component {
-  state = {
-    isBooklist: true,
-    asom: "",
-  };
 
-  setBookList = (BookList) => {
+import BookList from "./components/BookList";
+import CommentArea from "./components/CommentArea";
+import FantasyBooks from "./books/fantasy.json";
+import { Component } from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { Container, Row, Col } from "react-bootstrap";
+
+class App extends Component {
+  state = {
+    asin: "",
+  };
+  selectedBooks = (newBook) => {
     this.setState({
-      isBooklist: !this.state.isBooklist,
+      asin: newBook,
     });
   };
   render() {
     return (
-      <Container>
-        <WarningSign atext="Alert-san have mercy"></WarningSign>
-        <MyBadge badgetext="9" badgecolor="danger"></MyBadge>
-        <Row>
-          <Col>
-            <BookList class="books" books={books}></BookList>
-          </Col>
-          <Col>
-            <CommentArea />
-          </Col>
-        </Row>
-      </Container>
+      <div>
+        <Container fluid>
+          <Row>
+            <Col md={8}>
+              <BookList
+                books={FantasyBooks}
+                selectedBooks={this.selectedBooks}
+              />
+            </Col>
+            <Col md={4}>
+              <CommentArea asin={this.state.asin} />
+            </Col>
+          </Row>
+        </Container>
+      </div>
     );
   }
 }
+
+export default App;

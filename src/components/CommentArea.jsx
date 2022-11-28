@@ -1,84 +1,68 @@
 import { Component } from "react";
-import { ListGroup, Button } from "react-bootstrap";
-import Loading from "./Loading";
-import Error from "./Error";
-import AddComment from "./AddComment";
+import { Card, Container, Row, Col } from "react-bootstrap";
+
+const options = {
+  method: "GET",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization:
+      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzZjZjA3ZWQ0YmUzZDAwMTU4NDVmZDciLCJpYXQiOjE2Njk2NDM3OTUsImV4cCI6MTY3MDg1MzM5NX0.w35z8QX4eV6RObZ4CZo2EOeUpCKgPGoFrF2QXotYzbo",
+  },
+};
 
 class CommentArea extends Component {
   state = {
-    comments: [],
-    rate: "",
-    elementId: "",
-    isLoading: true,
-    isError: false,
+    comment: [],
   };
 
-  fetchComments = async (asin) => {
+  componentDidMount = () => {
+    if (this.props.asin) this.fetchCommentList(this.props.asin);
+  };
+
+  componentDidUpdate = (prevProps, prevState) => {
+    if (this.props.asin && prevProps.asin !== this.props.asin) {
+      this.fetchCommentList(this.props.asin);
+    }
+  };
+
+  fetchCommentList = async (asin) => {
     try {
       let response = await fetch(
-        `https://striveschool-api.herokuapp.com/api/comments/${asin}`,
-        {
-          headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzZjZmUyZmQ0YmUzZDAwMTU4NDYwNDkiLCJpYXQiOjE2NjkyOTE2OTcsImV4cCI6MTY3MDUwMTI5N30.vyyYtgxu13tFizNGxsvLTZPCYPSsgNLDvy1Iu1qu7JE",
-          },
-        }
+        "https://striveschool-api.herokuapp.com/api/comments/" +
+          this.props.asin,
+        options
       );
-      this.setState({ ...this.state, isLoading: false });
       if (response.ok) {
         let data = await response.json();
-        this.setState({ ...this.state, comments: data });
+
+        this.setState({ comment: data });
       } else {
-        this.setState({ ...this.state, isError: true });
+        console.log("Network Error");
       }
-    } catch (e) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
-
-  deleteComment = async (id) => {
-    try {
-      let response = await fetch(
-        `https://striveschool-api.herokuapp.com/api/comments/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization:
-              "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzZjZmE4MWQ0YmUzZDAwMTU4NDYwMjYiLCJpYXQiOjE2NjkzMDkyMTksImV4cCI6MTY3MDUxODgxOX0._gOhMot086lwAa4kecmOIN6KcmIza4c7l-hJDka1xlg",
-          },
-        }
-      );
-
-      this.fetchComments(this.props.asin);
-    } catch (e) {}
-  };
-
-  componentDidMount() {
-    this.fetchComments(this.props.asin);
-  }
   render() {
     return (
-      <>
-        {" "}
-        <ListGroup>
-          {this.state.isLoading && <Loading></Loading>}
-          {this.state.isError && <Error></Error>}
-          <AddComment />
-          {this.state.comments.map((comment) => (
-            <ListGroup.Item key={comment._id}>
-              {comment.comment}
-              <Button
-                variant="danger"
-                onClick={() => {
-                  this.deleteComment(comment._id);
-                }}
-              >
-                Delete
-              </Button>
-            </ListGroup.Item>
+      <Container className="my-5">
+        <h3>Book Comments</h3>
+        <Row>
+          {this.state.comment.map((bookComment) => (
+            <Col>
+              <Card key={bookComment.asin}>
+                <Card.Body>
+                  <Card.Subtitle className="text-muted">
+                    {bookComment.rate}
+                  </Card.Subtitle>
+                  <Card.Text>{bookComment.comment}</Card.Text>
+                </Card.Body>
+              </Card>
+            </Col>
           ))}
-        </ListGroup>
-      </>
+        </Row>
+      </Container>
     );
   }
 }
-
 export default CommentArea;

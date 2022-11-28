@@ -1,18 +1,23 @@
-import React from "react";
-import Row from "react-bootstrap/Row";
-import SingleBook from "./SingleBook";
+import { Component } from "react";
+import { Container, Row, Col } from "react-bootstrap";
+import BookData from "./BookData";
 
-class BookList extends React.Component {
-  state = {
-    selected: false,
-  };
+class BookList extends Component {
   render() {
     return (
-      <>
-        {this.props.books.map((book) => (
-          <SingleBook book={book}></SingleBook>
-        ))}
-      </>
+      <Container className="my-5">
+        <h3>Books</h3>
+        <Row>
+          {this.props.books.map((singleBook) => (
+            <Col key={singleBook.asin}>
+              <BookData
+                book={singleBook}
+                selectedBooks={this.props.selectedBooks}
+              />
+            </Col>
+          ))}
+        </Row>
+      </Container>
     );
   }
 }
