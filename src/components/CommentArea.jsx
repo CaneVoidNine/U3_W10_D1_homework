@@ -4,7 +4,7 @@ import SingleComment from "./SingleComment";
 import AddComment from "./AddComment";
 
 let uri = `https://striveschool-api.herokuapp.com/api/comments/`;
-const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzZjZjc2ZmQ0YmUzZDAwMTU4NDYwMTQiLCJpYXQiOjE2NjkyOTc4NDMsImV4cCI6MTY3MDUwNzQ0M30.YX8IkylxvRr8RSZhmVAHJyyJ3Onl4Koa4jmZbQGKrHg`;
+const token = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MzZjZmE4MWQ0YmUzZDAwMTU4NDYwMjYiLCJpYXQiOjE2Njk3MjcyMTIsImV4cCI6MTY3MDkzNjgxMn0.T7mbp-neLd29rJxU-ZLkbkwQbiKw1OzL14pL6NfGx4k`;
 const opts = {
   headers: {
     Authorization: `Bearer ${token}`,
